@@ -35,6 +35,9 @@ export DV_SIMULATORS="veri-testharness-pk"
 TIMEOUT_WALLCLOCK="800"
 TIMEOUT_TICKS="5000000"
 
+# Spike provides spike-dasm, which is required to post-process simulator traces.
+source ./verif/regress/install-spike.sh
+
 # ==============================================================================
 # Core simulation function
 # This function wraps the entire process for running a single CVA6
@@ -77,7 +80,14 @@ run_cva6_simulation() {
     if [[ "$DV_SIMULATORS" == *"veri-testharness-pk"* ]]; then
       local pk_log_file="./verif/sim/pk-install-${DV_TARGET}.log"
       echo "[ riscv-pk ] Installing RISC-V proxy kernel for ${DV_TARGET}..."
-      source ./verif/regress/install-pk.sh ${PK_ARCH} ${PK_MABI} > ${pk_log_file} 2>&1
+      if source ./verif/regress/install-pk.sh "${PK_ARCH}" "${PK_MABI}" > "${pk_log_file}" 2>&1; then
+        :
+      else
+        local pk_status=$?
+        echo "[ riscv-pk ] Installation failed for ${DV_TARGET}. Log: $(pwd)/${pk_log_file}" >&2
+        cat "${pk_log_file}" >&2
+        exit "${pk_status}"
+      fi
       echo "[ riscv-pk ] Installation logs available at: $(pwd)/${pk_log_file}"
       echo "[ riscv-pk ] PK_INSTALL_DIR is ${PK_INSTALL_DIR}"
     fi
