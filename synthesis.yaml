@@ -1,0 +1,55 @@
+schema: 1
+profile: orfs
+technology: asap7
+
+# tests: programs of the gate-level simulation (synthesis/gsim/tests/hex).
+targets:
+  cv32a65x:
+    config: cv32a65x
+    top: cva6
+    flist: core/Flist.cva6
+    sram: fakeram
+    tests: &rv32 [hello_world-rv32, rv32ui-p-add, rv32ui-p-addi, rv32ui-p-beq, rv32ui-p-jal,
+                  rv32ui-p-lw, rv32ui-p-sw, rv32um-p-mul]
+  cv64a6_imafdc_sv39_hpdcache:
+    config: cv64a6_imafdc_sv39_hpdcache
+    top: cva6
+    flist: core/Flist.cva6
+    sram: fakeram
+    tests: &rv64 [hello_world-rv64, rv64ui-p-add, rv64ui-p-addi, rv64ui-p-beq, rv64ui-p-jal,
+                  rv64ui-p-ld, rv64ui-p-sd, rv64um-p-mul]
+  cv64a6_imafdc_sv39_hpdcache_wb:
+    config: cv64a6_imafdc_sv39_hpdcache_wb
+    top: cva6
+    flist: core/Flist.cva6
+    sram: fakeram
+    tests: *rv64
+  cv64a6_imafdc_sv39:
+    config: cv64a6_imafdc_sv39
+    top: cva6
+    flist: core/Flist.cva6
+    sram: fakeram
+    tests: *rv64
+  cv32a6_imac_sv32:
+    config: cv32a6_imac_sv32
+    top: cva6
+    flist: core/Flist.cva6
+    sram: fakeram
+    tests: *rv32
+  # The upstream SRAM models: HPDcache memories as flip-flop arrays (reported
+  # as macro area), instruction cache memories absent. No gate-level simulation.
+  cv32a65x-reference:
+    config: cv32a65x
+    top: cva6
+    flist: core/Flist.cva6
+    sram: reference
+  cv64a6_imafdc_sv39_hpdcache-reference:
+    config: cv64a6_imafdc_sv39_hpdcache
+    top: cva6
+    flist: core/Flist.cva6
+    sram: reference
+  cv64a6_imafdc_sv39_hpdcache_wb-reference:
+    config: cv64a6_imafdc_sv39_hpdcache_wb
+    top: cva6
+    flist: core/Flist.cva6
+    sram: reference
