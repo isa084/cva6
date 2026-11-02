@@ -1,0 +1,26 @@
+schema: 1
+profile: orfs
+technology: asap7
+
+# A change under these paths makes a commit RTL-changing. The configurations
+# live in config/target/<name>/.
+rtl_paths: [core, common, vendor, ':(glob)config/target/*/rtl_cfg_pkg.sv',
+            ':(glob)config/target/*/Flist.cva6_synth']
+
+# tests: programs of the gate-level simulation (synthesis/gsim/tests/hex).
+targets:
+  # 32-bit, OBI memory subsystem, no caches. No gate-level simulation: the
+  # testbench has no OBI memory model yet.
+  cv32a65x:
+    config: cv32a65x
+    top: cva6_example_obi
+    flist: core/Flist.cva6
+    sram: fakeram
+  # 64-bit RV64IMAFDC, Sv39, HPDcache over AXI.
+  profile_rva20s64:
+    config: profile_rva20s64
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+    tests: [hello_world-rv64, rv64ui-p-add, rv64ui-p-addi, rv64ui-p-beq, rv64ui-p-jal,
+            rv64ui-p-ld, rv64ui-p-sd, rv64um-p-mul]
