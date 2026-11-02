@@ -609,7 +609,7 @@ module frontend
       kill_req_q <= '0;
       fetchbuf_windex_q <= '0;
       fetchbuf_w_q <= '0;
-      vaddr_q <= vaddr_d;
+      vaddr_q <= '0;
     end else begin
       if (ypb_a_state_q == TRANSPARENT) begin
         paddr_q <= paddr;
