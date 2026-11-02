@@ -16,11 +16,70 @@ targets:
     top: cva6_example_obi
     flist: core/Flist.cva6
     sram: fakeram
-  # 64-bit RV64IMAFDC, Sv39, HPDcache over AXI.
+  # 64-bit, Sv39, HPDcache over AXI (32 KB D-cache, 16 KB I-cache).
+  # profile_rva20s64: RV64IMAFDC + Zcb; profile_rva22s64: + Zba/Zbb/Zbs/Zbc;
+  # profile_rva23s64: + the hypervisor extension.
   profile_rva20s64:
     config: profile_rva20s64
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
-    tests: [hello_world-rv64, rv64ui-p-add, rv64ui-p-addi, rv64ui-p-beq, rv64ui-p-jal,
-            rv64ui-p-ld, rv64ui-p-sd, rv64um-p-mul]
+    tests: &rv64 [hello_world-rv64, rv64ui-p-add, rv64ui-p-addi, rv64ui-p-beq, rv64ui-p-jal,
+                  rv64ui-p-ld, rv64ui-p-sd, rv64um-p-mul]
+  profile_rva22s64:
+    config: profile_rva22s64
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+    tests: *rv64
+  profile_rva23s64:
+    config: profile_rva23s64
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+    tests: *rv64
+  # 32-bit, no MMU, HPDcache over AXI (2 KB write-back D-cache, 2 KB I-cache).
+  summit_pilatus:
+    config: summit_pilatus
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  # 64-bit, OBI memory subsystem, no caches.
+  profile_rvi20u64:
+    config: profile_rvi20u64
+    top: cva6_example_obi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_barredesecrins:
+    config: summit_barredesecrins
+    top: cva6_example_obi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_grandparadis:
+    config: summit_grandparadis
+    top: cva6_example_obi
+    flist: core/Flist.cva6
+    sram: fakeram
+  # The same HPDcache configurations without SRAM macros: the cache memories
+  # are flip-flop arrays, kept as separate modules and counted as macro area.
+  # No gate-level simulation.
+  profile_rva20s64-reference:
+    config: profile_rva20s64
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: reference
+  profile_rva22s64-reference:
+    config: profile_rva22s64
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: reference
+  profile_rva23s64-reference:
+    config: profile_rva23s64
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: reference
+  summit_pilatus-reference:
+    config: summit_pilatus
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: reference
