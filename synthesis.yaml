@@ -9,13 +9,15 @@ rtl_paths: [core, common, vendor, ':(glob)config/target/*/rtl_cfg_pkg.sv',
 
 # tests: programs of the gate-level simulation (synthesis/gsim/tests/hex).
 targets:
-  # 32-bit, OBI memory subsystem, no caches. No gate-level simulation: the
-  # testbench has no OBI memory model yet.
+  # 32-bit, OBI memory subsystem, no caches.
+  # rv32: the gate-level programs of the 32-bit configurations with the C extension.
   cv32a65x:
     config: cv32a65x
     top: cva6_example_obi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: &rv32 [hello_world-rv32, rv32ui-p-add, rv32ui-p-addi, rv32ui-p-beq, rv32ui-p-jal,
+                  rv32ui-p-lw, rv32ui-p-sw, rv32um-p-mul]
   # 64-bit, Sv39, HPDcache over AXI (32 KB D-cache, 16 KB I-cache).
   # profile_rva20s64: RV64IMAFDC + Zcb; profile_rva22s64: + Zba/Zbb/Zbs/Zbc;
   # profile_rva23s64: + the hypervisor extension.
@@ -39,36 +41,40 @@ targets:
     sram: fakeram
     tests: *rv64
   # 32-bit, no MMU, HPDcache over AXI (2 KB write-back D-cache, 2 KB I-cache).
-  # rv32: the gate-level programs of the 32-bit configurations with the C extension.
   summit_pilatus:
     config: summit_pilatus
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
-    tests: &rv32 [hello_world-rv32, rv32ui-p-add, rv32ui-p-addi, rv32ui-p-beq, rv32ui-p-jal,
-                  rv32ui-p-lw, rv32ui-p-sw, rv32um-p-mul]
+    tests: *rv32
   # 64-bit, OBI memory subsystem, no caches.
   profile_rvi20u64:
     config: profile_rvi20u64
     top: cva6_example_obi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: &rv64nc [rv64ui-p-add, rv64ui-p-addi, rv64ui-p-beq, rv64ui-p-jal, rv64ui-p-ld,
+                    rv64ui-p-sd, rv64um-p-mul]
   summit_barredesecrins:
     config: summit_barredesecrins
     top: cva6_example_obi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv64
   summit_grandparadis:
     config: summit_grandparadis
     top: cva6_example_obi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv64
   # 32-bit, OBI memory subsystem, no caches; shared TLB.
   summit_dammastock:
     config: summit_dammastock
     top: cva6_example_obi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: &rv32nc [rv32ui-p-add, rv32ui-p-addi, rv32ui-p-beq, rv32ui-p-jal, rv32ui-p-lw,
+                    rv32ui-p-sw, rv32um-p-mul]
   # Further HPDcache configurations over AXI. hello_world needs the C extension;
   # the configurations without it run the other programs (rv32nc, rv64nc).
   # 32-bit:
@@ -83,8 +89,7 @@ targets:
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
-    tests: &rv32nc [rv32ui-p-add, rv32ui-p-addi, rv32ui-p-beq, rv32ui-p-jal, rv32ui-p-lw,
-                    rv32ui-p-sw, rv32um-p-mul]
+    tests: *rv32nc
   summit_galenstock:
     config: summit_galenstock
     top: cva6_example_axi
@@ -127,8 +132,7 @@ targets:
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
-    tests: &rv64nc [rv64ui-p-add, rv64ui-p-addi, rv64ui-p-beq, rv64ui-p-jal, rv64ui-p-ld,
-                    rv64ui-p-sd, rv64um-p-mul]
+    tests: *rv64nc
   summit_dom:
     config: summit_dom
     top: cva6_example_axi
