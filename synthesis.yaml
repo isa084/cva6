@@ -39,11 +39,14 @@ targets:
     sram: fakeram
     tests: *rv64
   # 32-bit, no MMU, HPDcache over AXI (2 KB write-back D-cache, 2 KB I-cache).
+  # rv32: the gate-level programs of the 32-bit configurations with the C extension.
   summit_pilatus:
     config: summit_pilatus
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: &rv32 [hello_world-rv32, rv32ui-p-add, rv32ui-p-addi, rv32ui-p-beq, rv32ui-p-jal,
+                  rv32ui-p-lw, rv32ui-p-sw, rv32um-p-mul]
   # 64-bit, OBI memory subsystem, no caches.
   profile_rvi20u64:
     config: profile_rvi20u64
@@ -66,99 +69,120 @@ targets:
     top: cva6_example_obi
     flist: core/Flist.cva6
     sram: fakeram
-  # Further HPDcache configurations over AXI. No gate-level simulation yet.
+  # Further HPDcache configurations over AXI. hello_world needs the C extension;
+  # the configurations without it run the other programs (rv32nc, rv64nc).
   # 32-bit:
   profile_perf32_axi:
     config: profile_perf32_axi
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv32
   summit_eiger:
     config: summit_eiger
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: &rv32nc [rv32ui-p-add, rv32ui-p-addi, rv32ui-p-beq, rv32ui-p-jal, rv32ui-p-lw,
+                    rv32ui-p-sw, rv32um-p-mul]
   summit_galenstock:
     config: summit_galenstock
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv32
   summit_pizpalue:
     config: summit_pizpalue
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv32
   summit_saentis:
     config: summit_saentis
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv32nc
   summit_titlis:
     config: summit_titlis
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv32
   summit_toedi:
     config: summit_toedi
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv32
   # 64-bit:
   profile_perf64_axi:
     config: profile_perf64_axi
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv64
   summit_dentblanche:
     config: summit_dentblanche
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: &rv64nc [rv64ui-p-add, rv64ui-p-addi, rv64ui-p-beq, rv64ui-p-jal, rv64ui-p-ld,
+                    rv64ui-p-sd, rv64um-p-mul]
   summit_dom:
     config: summit_dom
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv64
   summit_finsteraarhorn:
     config: summit_finsteraarhorn
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv64
   summit_grandcombin:
     config: summit_grandcombin
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv64nc
   summit_grandesjorasses:
     config: summit_grandesjorasses
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv64nc
   summit_lyskamm:
     config: summit_lyskamm
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv64
   summit_matterhorn:
     config: summit_matterhorn
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv64
   summit_monterosa:
     config: summit_monterosa
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv64nc
   summit_nadelhorn:
     config: summit_nadelhorn
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv64
   summit_weisshorn:
     config: summit_weisshorn
     top: cva6_example_axi
     flist: core/Flist.cva6
     sram: fakeram
+    tests: *rv64
   # The same HPDcache configurations without SRAM macros: the cache memories
   # are flip-flop arrays, kept as separate modules and counted as macro area.
   # No gate-level simulation.
