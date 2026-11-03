@@ -60,6 +60,105 @@ targets:
     top: cva6_example_obi
     flist: core/Flist.cva6
     sram: fakeram
+  # 32-bit, OBI memory subsystem, no caches; shared TLB.
+  summit_dammastock:
+    config: summit_dammastock
+    top: cva6_example_obi
+    flist: core/Flist.cva6
+    sram: fakeram
+  # Further HPDcache configurations over AXI. No gate-level simulation yet.
+  # 32-bit:
+  profile_perf32_axi:
+    config: profile_perf32_axi
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_eiger:
+    config: summit_eiger
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_galenstock:
+    config: summit_galenstock
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_pizpalue:
+    config: summit_pizpalue
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_saentis:
+    config: summit_saentis
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_titlis:
+    config: summit_titlis
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_toedi:
+    config: summit_toedi
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  # 64-bit:
+  profile_perf64_axi:
+    config: profile_perf64_axi
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_dentblanche:
+    config: summit_dentblanche
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_dom:
+    config: summit_dom
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_finsteraarhorn:
+    config: summit_finsteraarhorn
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_grandcombin:
+    config: summit_grandcombin
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_grandesjorasses:
+    config: summit_grandesjorasses
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_lyskamm:
+    config: summit_lyskamm
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_matterhorn:
+    config: summit_matterhorn
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_monterosa:
+    config: summit_monterosa
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_nadelhorn:
+    config: summit_nadelhorn
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
+  summit_weisshorn:
+    config: summit_weisshorn
+    top: cva6_example_axi
+    flist: core/Flist.cva6
+    sram: fakeram
   # The same HPDcache configurations without SRAM macros: the cache memories
   # are flip-flop arrays, kept as separate modules and counted as macro area.
   # No gate-level simulation.
